@@ -15,5 +15,10 @@ def check_api(url):
     print("-" * 40)
 
 
-check_api("https://api.github.com")
-check_api("https://api.github.com/this-does-not-exist")
+urls = [
+    "https://api.github.com",
+    "https://api.github.com/this-does-not-exist",
+]
+
+for url in urls:
+    check_api(url)
