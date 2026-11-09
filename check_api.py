@@ -2,9 +2,16 @@ import requests
 
 
 def check_api(url):
-    response = requests.get(url, timeout=10)
-
     print("URL:", url)
+
+    try:
+        response = requests.get(url, timeout=10)
+    except requests.exceptions.ConnectionError:
+        print("Result: FAILURE")
+        print("Error: ConnectionError (could not connect)")
+        print("-" *40)
+        return
+
     print("Status code:", response.status_code)
     print("Time taken:", response.elapsed.total_seconds(), "seconds")
 
@@ -17,6 +24,7 @@ def check_api(url):
 
 urls = [
     "https://api.github.com",
+    "https://this-domain-does-not-exist.invalid",
     "https://api.github.com/this-does-not-exist",
 ]
 
