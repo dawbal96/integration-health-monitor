@@ -6,6 +6,11 @@ def check_api(url):
 
     try:
         response = requests.get(url, timeout=10)
+    except requests.exceptions.Timeout:
+        print("Result: FAILURE")
+        print("Error: Timeout (no response in time)")
+        print("-" *40)
+        return
     except requests.exceptions.ConnectionError:
         print("Result: FAILURE")
         print("Error: ConnectionError (could not connect)")
