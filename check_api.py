@@ -1,8 +1,11 @@
 import logging
+from pathlib import Path
 import requests
 
+LOG_FILE = Path(__file__).resolve().parent / "monitor.log"
+
 logging.basicConfig(
-    filename="monitor.log",
+    filename=LOG_FILE,
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
 )
