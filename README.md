@@ -45,6 +45,18 @@ python check_api.py
 
 Results are printed to the screen and added to `monitor.log`.
 
+## Run it automatically with cron
+
+The monitor is designed to run on a schedule. To check every 5 minutes, open your crontab with `crontab -e` and add this line, replacing `/path/to/` with the folder you cloned into:
+
+```
+*/5 * * * * /path/to/integration-health-monitor/.venv/bin/python /path/to/integration-health-monitor/check_api.py >> /path/to/integration-health-monitor/cron.log 2>&1
+```
+
+- Full paths are used because cron starts in the home folder and does not activate the virtual environment.
+- `monitor.log` holds the check results. `cron.log` holds the job's own output and any errors, so a failed run is never silent.
+- Watch results arrive with `tail -f monitor.log`.
+
 ## Test cases
 
 Two of the URLs in the list are meant to fail:
@@ -56,6 +68,5 @@ Two of the URLs in the list are meant to fail:
 
 In progress. Planned next:
 
-- Run the checks automatically on a schedule with cron
 - A second script that analyses the log: failure counts, error types, and whether failures look temporary or need investigating
 - A runbook for support engineers: how to investigate with `grep` and `tail`, and when to retry vs escalate
